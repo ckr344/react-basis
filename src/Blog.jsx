@@ -5,24 +5,28 @@ class Blog extends React.Component {
   // クラスなのでconstructorで初期化が必要
   constructor(props) {
     super(props);
+    this.state = {
+      isPublished: false,
+      order: 1
+    }
   }
   // 上記のように書くことで下記のthis.propsが使えるようになる
+
+  // 公開状態を反転させる関数
+  togglePublished = () => {
+    this.setState({
+      isPublished: !this.state.isPublished
+    })
+    // !は反転させるという意味
+  };
+
+
   render() {
-    const authorName = "344"
     return (
-      <>
-        <Article title={"React"}/>
-        <Article title={"JXS"}/>
-        <Article title={"環境構築"}/>
-          {/* <Article
-          title={"React"}
-          title={"JXS"}
-          title={"環境構築"}
-          // order={3}
-          // isPublished={true}
-          // author={authorName}
-        /> */}
-      </>
+      <React.Fragment>
+        {/* 子コンポーネントに引き渡したい場合は、toggle={() => this.togglePublished()}　という風に関数型にする必要がある */}
+        <Article title={"React"} isPublished={this.state.isPublished} toggle={() => this.togglePublished()} />
+      </React.Fragment>
     )
   }
 }
